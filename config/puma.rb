@@ -9,8 +9,8 @@ min_threads_count = ENV.fetch('RAILS_MIN_THREADS') { max_threads_count }
 threads min_threads_count, max_threads_count
 
 # Specifies the `port` that Puma will listen on to receive requests; default is 3000.
-#
-port ENV.fetch('PORT', 3000)
+# Bind host can be overridden to allow external connections (e.g., Easypanel/Docker)
+port ENV.fetch('PORT', 3000), ENV.fetch('BIND_HOST', '0.0.0.0')
 
 # Specifies the `environment` that Puma will run in.
 #

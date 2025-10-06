@@ -4,6 +4,16 @@
 # font cors issue with CDN
 # Ref: https://stackoverflow.com/questions/56960709/rails-font-cors-policy
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
+  # CORS for external clients (e.g., KanbanWoot). Set API_CORS_ORIGINS to your frontend domain.
+  allow do
+    origins ENV.fetch('API_CORS_ORIGINS', 'https://meu_kanbanwoot.com')
+    resource '*',
+             headers: :any,
+             methods: [:get, :post, :put, :patch, :delete, :options, :head],
+             credentials: true,
+             expose: %w[access-token client uid expiry]
+  end
+
   allow do
     origins '*'
     resource '/packs/*', headers: :any, methods: [:get, :options]
